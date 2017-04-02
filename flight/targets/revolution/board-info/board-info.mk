@@ -1,6 +1,6 @@
 BOARD_TYPE          := 0x09
 BOARD_REVISION      := 0x03
-BOOTLOADER_VERSION  := 0x87
+BOOTLOADER_VERSION  := 0x88
 HW_TYPE             := 0x00
 
 CHIP                := STM32F405RGT
