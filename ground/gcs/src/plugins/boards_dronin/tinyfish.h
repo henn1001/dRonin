@@ -1,7 +1,7 @@
 /**
  ******************************************************************************
- * @file       droninplugin.cpp
- * @author     dRonin, http://dRonin.org/, Copyright (C) 2016
+ * @file       pikoblx.h
+ * @author     dRonin, http://dRonin.org/, Copyright (C) 2017
  * @addtogroup GCSPlugins GCS Plugins
  * @{
  * @addtogroup Boards_dRonin dRonin board support plugin
@@ -27,55 +27,36 @@
  * of this source file; otherwise redistribution is prohibited.
  */
 
-#include "droninplugin.h"
-#include "simulation.h"
-#include "pikoblx.h"
-#include "tinyfish.h"
-#include "playuavosd.h"
-#include "seppuku.h"
-#include "sprf3e.h"
-#include <QtPlugin>
+#ifndef TINYFISH_H
+#define TINYFISH_H
 
-DroninPlugin::DroninPlugin()
+#include <uavobjectmanager.h>
+#include <coreplugin/iboardtype.h>
+
+class TINYFISH : public Core::IBoardType
 {
-}
+public:
+    TINYFISH();
+    virtual ~TINYFISH();
 
-DroninPlugin::~DroninPlugin()
-{
-}
+    virtual QString shortName();
+    virtual QString boardDescription();
+    virtual bool queryCapabilities(BoardCapabilities capability);
+    virtual QPixmap getBoardPicture();
+    virtual QString getHwUAVO();
+    virtual bool isInputConfigurationSupported(Core::IBoardType::InputType type);
+    virtual bool setInputType(Core::IBoardType::InputType type);
+    virtual Core::IBoardType::InputType getInputType();
+    virtual int queryMaxGyroRate();
+    virtual QStringList getAdcNames();
+    // virtual QString getConnectionDiagram();
+    // virtual QWidget *getBoardConfiguration(QWidget *parent, bool connected);
 
-bool DroninPlugin::initialize(const QStringList &arguments, QString *errorString)
-{
-    Q_UNUSED(arguments);
-    Q_UNUSED(errorString);
-    return true;
-}
+private:
+    UAVObjectManager *uavoManager;
+};
 
-void DroninPlugin::extensionsInitialized()
-{
-    // Init boards
-    Simulation *sim = new Simulation();
-    addAutoReleasedObject(sim);
-
-    PikoBLX *pikoblx = new PikoBLX();
-    addAutoReleasedObject(pikoblx);
-
-    TINYFISH *tinyfish = new TINYFISH();
-    addAutoReleasedObject(tinyfish);
-
-    PlayUavOsd *playuav = new PlayUavOsd();
-    addAutoReleasedObject(playuav);
-
-    Seppuku *seppuku = new Seppuku();
-    addAutoReleasedObject(seppuku);
-
-    Sprf3e *sprf3e = new Sprf3e();
-    addAutoReleasedObject(sprf3e);
-}
-
-void DroninPlugin::shutdown()
-{
-}
+#endif // TINYFISH_H_
 
 /**
  * @}
