@@ -1,7 +1,7 @@
 /**
  ******************************************************************************
- * @file       droninplugin.cpp
- * @author     dRonin, http://dRonin.org/, Copyright (C) 2016
+ * @file       pikoblx.h
+ * @author     dRonin, http://dRonin.org/, Copyright (C) 2017
  * @addtogroup GCSPlugins GCS Plugins
  * @{
  * @addtogroup Boards_dRonin dRonin board support plugin
@@ -27,51 +27,36 @@
  * of this source file; otherwise redistribution is prohibited.
  */
 
-#include "droninplugin.h"
-#include "simulation.h"
-#include "pikoblx.h"
-#include "kkng.h"
-#include "playuavosd.h"
-#include "seppuku.h"
-#include <QtPlugin>
+#ifndef KKNG_H
+#define KKNG_H
 
-DroninPlugin::DroninPlugin()
+#include <uavobjectmanager.h>
+#include <coreplugin/iboardtype.h>
+
+class KKNG : public Core::IBoardType
 {
-}
+public:
+    KKNG();
+    virtual ~KKNG();
 
-DroninPlugin::~DroninPlugin()
-{
-}
+    virtual QString shortName();
+    virtual QString boardDescription();
+    virtual bool queryCapabilities(BoardCapabilities capability);
+    virtual QPixmap getBoardPicture();
+    virtual QString getHwUAVO();
+    virtual bool isInputConfigurationSupported(Core::IBoardType::InputType type);
+    virtual bool setInputType(Core::IBoardType::InputType type);
+    virtual Core::IBoardType::InputType getInputType();
+    virtual int queryMaxGyroRate();
+    virtual QStringList getAdcNames();
+    // virtual QString getConnectionDiagram();
+    // virtual QWidget *getBoardConfiguration(QWidget *parent, bool connected);
 
-bool DroninPlugin::initialize(const QStringList &arguments, QString *errorString)
-{
-    Q_UNUSED(arguments);
-    Q_UNUSED(errorString);
-    return true;
-}
+private:
+    UAVObjectManager *uavoManager;
+};
 
-void DroninPlugin::extensionsInitialized()
-{
-    // Init boards
-    Simulation *sim = new Simulation();
-    addAutoReleasedObject(sim);
-
-    PikoBLX *pikoblx = new PikoBLX();
-    addAutoReleasedObject(pikoblx);
-
-    KKNG *kkng = new KKNG();
-    addAutoReleasedObject(kkng);
-
-    PlayUavOsd *playuav = new PlayUavOsd();
-    addAutoReleasedObject(playuav);
-
-    Seppuku *seppuku = new Seppuku();
-    addAutoReleasedObject(seppuku);
-}
-
-void DroninPlugin::shutdown()
-{
-}
+#endif // KKNG_H_
 
 /**
  * @}

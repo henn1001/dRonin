@@ -16,6 +16,7 @@ HEADERS += \
     simulation.h \
     simulationconfiguration.h \
     pikoblx.h \
+	kkng.h \
     playuavosd.h \
     seppuku.h \
     seppukuconfiguration.h
@@ -25,6 +26,7 @@ SOURCES += \
     simulation.cpp \
     simulationconfiguration.cpp \
     pikoblx.cpp \
+	kkng.cpp \
     playuavosd.cpp \
     seppuku.cpp \
     seppukuconfiguration.cpp
