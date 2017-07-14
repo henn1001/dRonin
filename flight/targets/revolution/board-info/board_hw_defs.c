@@ -71,7 +71,7 @@ static const struct pios_annunc pios_annuncs_v2[] = {
 			},
 		},
 	},
-	[PIOS_LED_ALARM] = {
+	[PIOS_ANNUNCIATOR_BUZZER] = {
 		.pin = {
 			.gpio = GPIOB,
 			.init = {
@@ -82,6 +82,7 @@ static const struct pios_annunc pios_annuncs_v2[] = {
 				.GPIO_PuPd = GPIO_PuPd_UP
 			},
 		},
+		.active_high = true,
 	},
 };
 
